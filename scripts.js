@@ -52,15 +52,17 @@ let myTime; // timer will be assign to this variable
 
 function timecounting() {
     myTime = setInterval(() => {
-        time -= 0.5
-        document.getElementById('timeCount').innerHTML = time
+        time -= 1
+        document.getElementById('timeCount').innerHTML = `Time Lef: ${time}`
+        if(time <= 0){
+            document.getElementById('timerResultMessage').innerHTML = "Sorry, your time ran out."
+            timeOut();
+        }
     }, 1000)// every 1 second, it will add 1 into time variable (the computer uses millisecond so 1000 is 1 second)
+    
 }
-document.getElementById("timeCount").innerHTML = `Time Left: ${timecounting()}` // fire the timecounting function!!
+timecounting();
 
-if(timecounting() <= 0){
-    resultMessage = "Sorry, your time ran out."
+function timeOut() {
+    clearInterval(myTime);
 }
-return;
-
-//while(timecounti
