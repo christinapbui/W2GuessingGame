@@ -29,7 +29,8 @@ function guess(){
         alert("Your number exceeds 100! Try again.")
     // 7. if computer's number === user's number, then say "correct"
     }else if(computerNum == userNum){
-        resultMessage = "Correct!"
+        resultMessage = "Correct! Click reset to play again."
+        timeOut();
     }
     document.getElementById("guessesRemainingArea").innerHTML = `Guesses Remaining: ${remainingAttempts--}`
     // a. make the chance feature (only 5 chances to guess)
@@ -40,7 +41,7 @@ function guess(){
     // 8. show the result to the user
     document.getElementById("resultArea").innerHTML = `${resultMessage}`
     // 9. also show the history
-    document.getElementById("historyArea").innerHTML = `History: ${history}`
+    document.getElementById("historyArea").innerHTML = `You have previously guessed: ${history}`
 
 }
 if(remainingAttempts <= 0){
@@ -49,14 +50,18 @@ if(remainingAttempts <= 0){
 
 let time = 10 // time start from 30 sec
 let myTime; // timer will be assign to this variable
+let guessBtn = document.getElementById('guessBtn')
 
 function timecounting() {
     myTime = setInterval(() => {
         time -= 1
-        document.getElementById('timeCount').innerHTML = `Time Lef: ${time}`
+        document.getElementById('timeCount').innerHTML = `Time Left: ${time}`
         if(time <= 0){
-            document.getElementById('timerResultMessage').innerHTML = "Sorry, your time ran out."
+            document.getElementById('timerResultMessage').innerHTML = "Sorry, you ran out of time."
             timeOut();
+            if(timeOut()){
+                disableGuessBtn();
+            }
         }
     }, 1000)// every 1 second, it will add 1 into time variable (the computer uses millisecond so 1000 is 1 second)
     
@@ -65,4 +70,12 @@ timecounting();
 
 function timeOut() {
     clearInterval(myTime);
+}
+
+function disableGuessBtn() {
+    document.getElementById('guessBtn').disabled = true;
+}
+
+function reset(){
+    document.getElementById('userGuess').reset();
 }
